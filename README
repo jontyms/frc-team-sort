@@ -1,0 +1,3 @@
+A tool to get you a list of all the event ids a team has won for a given year sorted by score.
+Place a token from https://www.thebluealliance.com/account in a file named token.txt.
+You can get more match details by using this url https://www.thebluealliance.com/match/{{match_id}}
