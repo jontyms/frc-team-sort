@@ -2,8 +2,16 @@ import requests
 import json
 import os
 from typing import List, Optional
+import webbrowser
+import argparse
 
 
+parser = argparse.ArgumentParser(
+                    prog='frc top winning score',
+                    description= 'get the top winning score',
+                    epilog='Text at the bottom of help')
+
+parser.add_argument('-o', '--open', help='opens top 5 matches in web browser ', action='store_true')     
 with open("token.txt") as token_f:
     token = token_f.read().strip()
 
@@ -45,6 +53,15 @@ def get_team_winning_events(team_key: str, year: int):
 
 winning_events = get_team_winning_events(team_key, year)
 
-sorted_dict = dict(sorted(winning_events, key=lambda x: x[1], reverse=True))
+sorted_dict = list(sorted(winning_events, key=lambda x: x[1], reverse=True))
 print(sorted_dict)
+i = 0 
 
+args = parser.parse_args()
+
+while i <= 5:
+    score = sorted_dict[i][0] 
+    print(f"https://www.thebluealliance.com/match/{score}")
+    if args.open:
+     webbrowser.open(f"https://www.thebluealliance.com/match/{score}")
+    i = i + 1
